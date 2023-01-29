@@ -4,28 +4,52 @@ let randNum = Math.floor(Math.random() * 10 + 1);
 // console.log(`random num is: ${randNum}`);
 let actualAnswer = randNum; //random number auto generated
 let numTries = 3;
-while (numTries > 0) {
-    const answer = await inquirer.prompt([
-        {
-            name: "meraGuess",
-            message: "Number dalo Bahi",
-            type: "number",
-        },
-    ]);
-    // console.log(answer);
-    if (answer.meraGuess == actualAnswer) {
-        console.log("Hurrah! You gussed it right. Game Over");
-        numTries = 0;
-    }
-    else {
-        console.log("You guessed it wrong");
-        if (actualAnswer > answer.meraGuess) {
-            console.log("Think Higher");
+let play = true;
+;
+;
+while (play) {
+    while (numTries > 0) {
+        const answer = await inquirer.prompt([
+            {
+                name: "meraGuess",
+                message: "Number dalo Bahi",
+                type: "number",
+            },
+        ]);
+        // console.log(answer);
+        if (answer.meraGuess == actualAnswer) {
+            console.log("Hurrah! You gussed it right. Game Over");
+            numTries = 0;
         }
         else {
-            console.log("Think Lower");
+            console.log("You guessed it wrong");
+            if (actualAnswer > answer.meraGuess) {
+                console.log("Think Higher");
+            }
+            else {
+                console.log("Think Lower");
+            }
+            console.log(`You have ${numTries - 1} left`);
         }
-        console.log(`You have ${numTries - 1} left`);
+        numTries--; //numTries = numTries-1
     }
-    numTries--; //numTries = numTries-1
+    ;
+    const playAgainAnswer = await inquirer.prompt([
+        {
+            name: "playAgain",
+            message: "Wanna play again",
+            type: "confirm",
+        },
+    ]);
+    console.log("Play Again", playAgainAnswer);
+    if (playAgainAnswer.playAgain) {
+        numTries = 3;
+        randNum = Math.floor(Math.random() * 10 + 1);
+        actualAnswer = randNum;
+    }
+    else {
+        console.log("Exiting game.....");
+        play = false;
+    }
 }
+;
